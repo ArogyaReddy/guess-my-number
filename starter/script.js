@@ -20,6 +20,9 @@ document.querySelector('.guess').value = 15;
 console.log(document.querySelector('.guess').value);
 */
 
+//TODO: declare variabls
+let score = 20;
+
 //NOTE: get a scecrete number between 1 to 20
 const secreteNumber = Math.trunc(Math.random() * 20) + 1;
 // Display Randome number in ?
@@ -34,14 +37,36 @@ document.querySelector('.check').addEventListener('click', function () {
   // console.log(guess);
   // console.log(typeof guess);
   console.log(guess, typeof guess);
-
+  //THIS:- When there is no input in guess filed.
   if (!guess) {
     document.querySelector('.message').textContent = '⛔️ No number';
+
+    //THIS:- When player wins
   } else if (guess === secreteNumber) {
     document.querySelector('.message').textContent = '👏 Correct number!';
+
+    //THIS:- When player's guess is more than secreteNumber
   } else if (guess > secreteNumber) {
-    document.querySelector('.message').textContent = '🤒Too high!';
+    if (score > 1) {
+      //NOTE: #1 method
+      // score = score - 1;
+      //NOTE: #2
+      score--;
+      document.querySelector('.score').textContent = score;
+      document.querySelector('.message').textContent = '🤒 Too high!';
+    } else {
+      document.querySelector('.message').textContent = '😩 You lost the game';
+      document.querySelector('.score').textContent = 0;
+    }
+    //THIS:- When player's guess is less than secreteNumber
   } else if (guess < secreteNumber) {
-    document.querySelector('.message').textContent = '⬇️ Too low!';
+    if (score > 1) {
+      score--;
+      document.querySelector('.score').textContent = score;
+      document.querySelector('.message').textContent = '⬇️ Too low!';
+    } else {
+      document.querySelector('.message').textContent = '😩 You lost the game';
+      document.querySelector('.score').textContent = 0;
+    }
   }
 });
